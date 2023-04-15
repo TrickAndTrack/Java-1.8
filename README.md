@@ -22,6 +22,31 @@ Oracle released a new version of Java as Java 8 in March 18, 2014.
 
 ## Lambda expressions
 Java 8 Lambda Expressions can be defined as methods without names i.e., anonymous functions.  It saves a lot of code.It is very useful in the collection library. It helps to iterate, filter, and extract data from the collection.
+To provide the implementation of a Functional interface.
+Less coding.
+Removes verbosity and repetition of code.
+You to write more clear, concise, and flexible code.
+
+## Lambda Syntax
+No Parameter Syntax ->  () -> {  
+                                //Body   
+                                }  
+One Parameter Syntax -> (p1) -> {  
+                                //Body 
+                                }  
+Two Parameter Syntax ->  (p1,p2) -> {  
+                                    //Body multiple 
+                                    }  
+
+### What are the three main parts of a Lambda expression in Java?
+1)	Parameter list
+2)	Lambda arrow operator: -> It separates the list of parameters and the body of Lambda.
+3)	Lambda expression body: The piece of code that we want to execute is written in the Lambda expression body.
+
+### Where to Use Lambda Expressions?
+Lambda expressions are used where an instance of the functional interface is expected.Functional interfaces can have any number of default methods. But, they must have only one abstract method
+
+### What is the data type of a Lambda expression? -> The data type of a Lambda expression is a Functional interface.
 
 ### how lambda expressions can be used with CRUD (Create, Read, Update, Delete) operations:
 ```java
@@ -102,4 +127,19 @@ userList.removeIf(u -> u.getId() == 1);
         }
     }
 ```
+# Java Functional Interfaces
+•	What is a Functional interface in Java 8?
+•	What is a Single Abstract Method (SAM) interface in Java 8?
+•	How can we define a Functional interface in Java 8?
+•	Why do we need Functional interface in Java? ->mainly used in Lambda expressions, Method references, and constructor references.
+•	What are the differences between Predicate, Supplier, and Consumer in Java 8?
 
+An Interface that contains exactly one abstract method is known as a functional interface. They may have any number of default methods but must have only one abstract method. Functional interfaces provide only one functionality to implement.
+
+Let’s see how to use 4 important functional interfaces	          Functional Interfaces Supporting Primitive Type
+
+| ------------- | ------------- |------------- | 
+| Predicate  | Boolean result  |IntPredicate,LongPredicate, double Predicate|
+| Consumer  | No Result  |IntConsumer,LongConsumer, double Consumer |
+| Function  | Input and output  |IntFunction,LongFunction, doubleFunction,  toIntFunction, toLongFunction, todouble Function |
+| Supplier  | No input only supply  |IntSupplier,LongSupplier,doubleSupplier |
