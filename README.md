@@ -137,7 +137,7 @@ userList.removeIf(u -> u.getId() == 1);
 An Interface that contains exactly one abstract method is known as a functional interface. They may have any number of default methods but must have only one abstract method. Functional interfaces provide only one functionality to implement.
 
 Let’s see how to use 4 important functional interfaces	          Functional Interfaces Supporting Primitive Type
-
+| |  ||
 | ------------- | ------------- |------------- | 
 | Predicate  | Boolean result  |IntPredicate,LongPredicate, double Predicate|
 | Consumer  | No Result  |IntConsumer,LongConsumer, double Consumer |
