@@ -143,3 +143,61 @@ Let’s see how to use 4 important functional interfaces	          Functional In
 | Consumer  | No Result  |IntConsumer,LongConsumer, double Consumer |
 | Function  | Input and output  |IntFunction,LongFunction, doubleFunction,  toIntFunction, toLongFunction, todouble Function |
 | Supplier  | No input only supply  |IntSupplier,LongSupplier,doubleSupplier |
+
+
+## Here are some examples of using functional interfaces in Spring Boot APIs:
+### Using Function<T, R> in the mapping layer:
+Function<T, R> is a functional interface that takes a single input argument of type T and returns a result of type R. This interface can be used in the mapping layer of a Spring Boot application to transform the input data into the desired output format.
+
+```java
+@RestController
+@RequestMapping("/api/customers")
+public class CustomerController {
+
+    @Autowired
+    private CustomerService customerService;
+
+    @GetMapping("/{id}")
+    public CustomerDTO getCustomerById(@PathVariable Long id) {
+        Customer customer = customerService.getCustomerById(id);
+        Function<Customer, CustomerDTO> customerToDTO = c -> new CustomerDTO(c.getId(), c.getName(), c.getEmail());
+        return customerToDTO.apply(customer);
+    }
+}
+```
+### Using Predicate<T> in the filtering layer:
+Predicate<T> is a functional interface that takes a single input argument of type T and returns a boolean. This interface can be used in the filtering layer of a Spring Boot application to select only the desired data from a collection.
+```java
+@RestController
+@RequestMapping("/api/customers")
+public class CustomerController {
+
+    @Autowired
+    private CustomerService customerService;
+
+    @GetMapping
+    public List<CustomerDTO> getAllActiveCustomers() {
+        List<Customer> customers = customerService.getAllCustomers();
+        Predicate<Customer> isActive = Customer::isActive;
+        return customers.stream()
+                .filter(isActive)
+                .map(c -> new CustomerDTO(c.getId(), c.getName(), c.getEmail()))
+                .collect(Collectors.toList());
+    }
+}
+```
+
+### Using Supplier<T> in the error handling layer:
+Supplier<T> is a functional interface that takes no input arguments and returns a result of type T. This interface can be used in the error handling layer of a Spring Boot application to provide default values or fallback strategies.
+
+```java
+@RestControllerAdvice
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<Object> handleCustomerNotFoundException(CustomerNotFoundException ex) {
+        Supplier<ApiError> errorSupplier = () -> new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<>(errorSupplier.get(), HttpStatus.NOT_FOUND);
+    }
+}
+```
